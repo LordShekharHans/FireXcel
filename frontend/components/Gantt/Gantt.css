@@ -1,0 +1,71 @@
+.gantt-chart {
+  --primary-color: theme('colors.primary.DEFAULT');
+  --border-color: theme('colors.border');
+  --background-color: theme('colors.background');
+}
+
+.gantt_container {
+  border-radius: theme('borderRadius.lg');
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+}
+
+.gantt_grid_scale,
+.gantt_task_scale {
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.gantt_grid_data,
+.gantt_task_bg {
+  background-color: var(--background-color);
+}
+
+/* Task colors */
+.task-blue .gantt_task_progress {
+  background-color: theme('colors.blue.500');
+}
+
+.task-blue .gantt_task_content {
+  background-color: theme('colors.blue.500');
+  border-color: theme('colors.blue.600');
+}
+
+.task-red .gantt_task_progress {
+  background-color: theme('colors.red.500');
+}
+
+.task-red .gantt_task_content {
+  background-color: theme('colors.red.500');
+  border-color: theme('colors.red.600');
+}
+
+.task-green .gantt_task_progress {
+  background-color: theme('colors.green.500');
+}
+
+.task-green .gantt_task_content {
+  background-color: theme('colors.green.500');
+  border-color: theme('colors.green.600');
+}
+
+.task-gray .gantt_task_progress {
+  background-color: theme('colors.gray.500');
+}
+
+.task-gray .gantt_task_content {
+  background-color: theme('colors.gray.500');
+  border-color: theme('colors.gray.600');
+}
+
+/* Task styling */
+.gantt_task_line {
+  border-radius: theme('borderRadius.sm');
+  height: 30px !important;
+}
+
+.gantt_task_content {
+  color: white;
+  font-weight: 500;
+  line-height: 30px;
+}
