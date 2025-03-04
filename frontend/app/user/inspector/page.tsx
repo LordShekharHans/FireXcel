@@ -17,12 +17,13 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
+const InspectionGantt = dynamic(() => import('../../../components/inspector/InspectionGantt').then((mod) => mod.default), {
+  ssr: false,
+});
 
-const InspectionGantt = dynamic(() => import("@/components/inspector/InspectionGantt") as unknown as Promise<{ default: React.ComponentType<any> }>, { ssr: false });
-
-const InspectionTimeline = dynamic(() => import("@/components/inspector/timeline/InspectionTimeline")as unknown as Promise<{ default: React.ComponentType<any> }>, { ssr: false });
-
-const InspectionStats = dynamic(() => import("@/components/inspector/stats/InspectionStats")as unknown as Promise<{ default: React.ComponentType<any> }>, { ssr: false });
+// const InspectionGantt = dynamic(() => import("@/components/inspector/InspectionGantt"), { ssr: false });
+const InspectionTimeline = dynamic(() => import("@/components/inspector/timeline/InspectionTimeline").then((mod) => mod.default), { ssr: false });
+const InspectionStats = dynamic(() => import("@/components/inspector/stats/InspectionStats").then((mod) => mod.default), { ssr: false });
 
 export default function InspectorDashboard() {
   const { user } = useAuthStore();

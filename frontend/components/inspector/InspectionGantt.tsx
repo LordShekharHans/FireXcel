@@ -7,7 +7,7 @@ interface InspectionGanttProps {
   inspections: Inspection[];
 }
 
-export function InspectionGantt({ inspections }: InspectionGanttProps) {
+export default  function InspectionGantt({ inspections }: InspectionGanttProps) {
   const stats = {
     total: inspections.length,
     completed: inspections.filter(i => i.result === 'INSPECTION COMPLETED').length,

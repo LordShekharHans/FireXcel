@@ -11,7 +11,7 @@ interface InspectionStatsProps {
   inspections: Inspection[];
 }
 
-export function InspectionStats({ inspections }: InspectionStatsProps) {
+export default function InspectionStats({ inspections }: InspectionStatsProps) {
   if (!inspections?.length) {
     return (
       <Card>

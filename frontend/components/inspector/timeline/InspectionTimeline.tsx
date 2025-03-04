@@ -11,7 +11,7 @@ interface InspectionTimelineProps {
   inspections: Inspection[];
 }
 
-export function InspectionTimeline({ inspections }: InspectionTimelineProps) {
+export default  function InspectionTimeline({ inspections }: InspectionTimelineProps) {
   const groups = groupInspectionsByMonth(inspections);
   const stats = getInspectionStats(inspections);
 
