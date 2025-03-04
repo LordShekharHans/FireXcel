@@ -26,14 +26,16 @@ export const useAuthStore = create<AuthState>()(
           };
 
           authApi.setAuthToken(response.token);
-
-          if (typeof window !== "undefined") {
-            const domain = window.location.hostname;
-            setCookie("fdmtoken", response.token, { maxAge: 30 * 24 * 60 * 60, domain });
-            setCookie("fdmuser", JSON.stringify(user), { maxAge: 30 * 24 * 60 * 60, domain }); // Convert object to string
-          }
-
+          setCookie("fdmtoken", response.token, {
+            maxAge: 30 * 24 * 60 * 60,
+            domain: window.location.hostname,
+          });
+          setCookie("fdmuser", user, {
+            maxAge: 30 * 24 * 60 * 60,
+            domain: window.location.hostname,
+          });
           set({ user, token: response.token, isLoading: false });
+
           return user;
         } catch (error) {
           set({ isLoading: false });
@@ -54,13 +56,17 @@ export const useAuthStore = create<AuthState>()(
             role: response.userRole.roleName as User["role"],
           };
 
-          if (typeof window !== "undefined") {
-            const domain = window.location.hostname;
-            setCookie("fdmtoken", response.token, { maxAge: 30 * 24 * 60 * 60, domain });
-            setCookie("fdmuser", JSON.stringify(user), { maxAge: 30 * 24 * 60 * 60, domain });
-          }
-
+          authApi.setAuthToken(response.token);
+          setCookie("fdmtoken", response.token, {
+            maxAge: 30 * 24 * 60 * 60,
+            domain: window.location.hostname,
+          });
+          setCookie("fdmuser", user, {
+            maxAge: 30 * 24 * 60 * 60,
+            domain: window.location.hostname,
+          });
           set({ user, token: response.token, isLoading: false });
+
           return user;
         } catch (error) {
           set({ isLoading: false });
@@ -72,16 +78,14 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         authApi.clearAuthToken();
         set({ user: null, token: null });
-
-        if (typeof window !== "undefined") {
-          localStorage.clear();
-          sessionStorage.clear();
-          sessionStorage.removeItem("auth-storage"); // ✅ Remove Zustand persist storage
-          
-          const domain = window.location.hostname;
-          deleteCookie("fdmtoken", { domain });
-          deleteCookie("fdmuser", { domain });
-        }
+        localStorage.clear();
+        sessionStorage.clear();
+        deleteCookie("fdmtoken", {
+          domain: window.location.hostname,
+        });
+        deleteCookie("fdmuser", {
+          domain: window.location.hostname,
+        });
       },
     }),
     {

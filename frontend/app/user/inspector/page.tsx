@@ -24,16 +24,13 @@ const InspectionTimeline = dynamic(() => import("@/components/inspector/timeline
 
 const InspectionStats = dynamic(() => import("@/components/inspector/stats/InspectionStats")as unknown as Promise<{ default: React.ComponentType<any> }>, { ssr: false });
 
-
 export default function InspectorDashboard() {
   const { user } = useAuthStore();
   const [inspections, setInspections] = useState<Inspection[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
-
 
   useEffect(() => {
-    setIsClient(true);
+    if (typeof window === "undefined") return;
     if (!user || user.role !== "INSPECTOR") {
       redirect("/auth/sign-in");
     }
@@ -52,19 +49,18 @@ export default function InspectorDashboard() {
     loadInspections();
   }, [user]);
 
-  if (!isClient) {
-    return null; // Prevents SSR-related errors
-  }
-
-  if (loading || !user) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="text-sm text-muted-foreground">Loading...</p>
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">
+            Loading dashboard data...
+          </p>
+        </div>
       </div>
     );
   }
-
 
   const stats = {
     total: inspections.length,
