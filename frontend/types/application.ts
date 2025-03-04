@@ -1,4 +1,7 @@
+import { ReactNode } from "react";
+
 export interface Application {
+  priority: ReactNode;
   application_form: any;
   documents: any;
   applicationId: number;
@@ -9,6 +12,7 @@ export interface Application {
   createdAt: string;
   updatedAt: string;
   user: {
+    phone: string;
     userId: number;
     name: string;
     email: string;
@@ -46,6 +50,23 @@ export interface ApplicationsState {
 
 
 export interface ApplicationForm {
+  numberOfMainPumps: any;
+  numberOfFireLifts: any;
+  numberOfHydrantsPerFloor: any;
+  fireExtinguishersTotalNumbersEachFloor: any;
+  standbyPowerSupply: any;
+  internalRoadWidth: any;
+  gateWidth: any;
+  roadWidth: any;
+  totalCoveredArea: any;
+  basementFloorArea: any;
+  typicalFloorArea: any;
+  numberOfBasements: any;
+  numberOfFloors: any;
+  coveredAreaGroundFloor: any;
+  typeOfOccupancy: any;
+  heightOfBuilding: any;
+  division: any;
   provisionOfStaircase: boolean;
   fireTower: boolean;
   fireCheckDoor: boolean;

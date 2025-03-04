@@ -1,30 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AdminList } from './AdminList';
 import { AssignedInspectors } from './AssignedInspectors';
 import { adminApi } from '@/lib/api/admin';
-import { Admin, Inspector } from '@/types/admin';
+
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 
 export function AdminInspectorManager({ onInspectorAssigned }: { onInspectorAssigned?: () => void }) {
-  const [admins, setAdmins] = useState<Admin[]>([]);
+  const [admins, setAdmins] = useState<any>([]);
   const [selectedAdminId, setSelectedAdminId] = useState<number | null>(null);
-  const [inspectors, setInspectors] = useState<Inspector[]>([]);
+  const [inspectors, setInspectors] = useState<any>([]);
   const { toast } = useToast();
 
-  useEffect(() => {
-    fetchAdmins();
-  }, []);
 
-  useEffect(() => {
-    if (selectedAdminId) {
-      fetchInspectors(selectedAdminId);
-    }
-  }, [selectedAdminId]);
 
-  const fetchAdmins = async () => {
+  const fetchAdmins = useCallback(async () => {
     try {
       const data = await adminApi.getAllAdmins();
       setAdmins(data);
@@ -38,9 +30,9 @@ export function AdminInspectorManager({ onInspectorAssigned }: { onInspectorAssi
         variant: "destructive",
       });
     }
-  };
-
-  const fetchInspectors = async (adminId: number) => {
+  }, [toast]);
+  
+  const fetchInspectors = useCallback(async (adminId: number) => {
     try {
       const data = await adminApi.getInspectorsForAdmin(adminId);
       setInspectors(data);
@@ -51,7 +43,18 @@ export function AdminInspectorManager({ onInspectorAssigned }: { onInspectorAssi
         variant: "destructive",
       });
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    fetchAdmins();
+  }, [fetchAdmins]);
+
+  useEffect(() => {
+    if (selectedAdminId) {
+      fetchInspectors(selectedAdminId);
+    }
+  }, [selectedAdminId, fetchInspectors]);
+
 
   const handleUnassignInspector = async (inspectorId: number) => {
     try {
@@ -74,7 +77,6 @@ export function AdminInspectorManager({ onInspectorAssigned }: { onInspectorAssi
       });
     }
   };
-
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <AdminList

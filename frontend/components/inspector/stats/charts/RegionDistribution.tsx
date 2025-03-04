@@ -12,7 +12,8 @@ interface RegionDistributionProps {
 
 export function RegionDistribution({ inspections }: RegionDistributionProps) {
   // Get unique regions from inspections
-  const uniqueRegions = [...new Set(inspections.map(i => i.region))].filter(Boolean);
+  const uniqueRegions = Array.from(new Set(inspections.map(i => i.region).filter(Boolean)));
+
   
   // Count inspections by region
   const regionCounts = uniqueRegions.reduce((acc, region) => {

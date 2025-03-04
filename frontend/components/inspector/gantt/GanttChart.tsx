@@ -7,6 +7,7 @@ import { calculateGanttData } from "@/lib/utils/gantt";
 import { GanttHeader } from "./GanttHeader";
 import { GanttRow } from "./GanttRow";
 import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
 
 interface GanttChartProps {
   inspections: Inspection[];

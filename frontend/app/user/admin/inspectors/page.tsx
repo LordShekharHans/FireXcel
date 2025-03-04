@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,7 +72,7 @@ const Page = () => {
     fetchData();
   }, []);
 
-  const handleCreateInspector = async (e) => {
+  const handleCreateInspector = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

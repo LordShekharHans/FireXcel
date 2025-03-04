@@ -16,9 +16,12 @@ export const ContainerScroll = ({
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") return; // Prevents SSR issues
+  
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
+  
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => {

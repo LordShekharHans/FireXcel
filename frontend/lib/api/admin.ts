@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Admin, Inspector } from '@/types/admin';
+
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const adminApi = {
-  getAllAdmins: async (): Promise<Admin[]> => {
+  getAllAdmins: async (): Promise<any> => {
     const response = await axios.get(
       `${API_BASE_URL}/superadmin/all-admins`,
       {
@@ -16,7 +16,7 @@ export const adminApi = {
     return response.data;
   },
 
-  getInspectorsForAdmin: async (adminId: number): Promise<Inspector[]> => {
+  getInspectorsForAdmin: async (adminId: number): Promise<any> => {
     const response = await axios.get(
       `${API_BASE_URL}/superadmin/inspectorsviaadmin/${adminId}`,
       {
@@ -28,7 +28,7 @@ export const adminApi = {
     return response.data;
   },
 
-  getUnassignedInspectors: async (): Promise<Inspector[]> => {
+  getUnassignedInspectors: async (): Promise<any> => {
     const response = await axios.get(
       `${API_BASE_URL}/superadmin/inspectorswithoutadmin`,
       {

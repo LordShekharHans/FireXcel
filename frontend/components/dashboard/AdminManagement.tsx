@@ -1,23 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AdminInspectorManager } from "./AdminInspectorManager";
 import { UnassignedInspectorList } from "./UnassignedInspectorList";
 import { adminApi } from '@/lib/api/admin';
-import { Inspector } from '@/types/admin';
+
 import { useToast } from '@/hooks/use-toast';
 
 export function AdminManagement() {
-  const [unassignedInspectors, setUnassignedInspectors] = useState<Inspector[]>([]);
+  const [unassignedInspectors, setUnassignedInspectors] = useState<any>([]);
   const { toast } = useToast();
 
-  useEffect(() => {
-    fetchUnassignedInspectors();
-  }, []);
-
-  const fetchUnassignedInspectors = async () => {
+  const fetchUnassignedInspectors = useCallback(async () => {
     try {
       const data = await adminApi.getUnassignedInspectors();
       setUnassignedInspectors(data);
@@ -28,7 +24,11 @@ export function AdminManagement() {
         variant: "destructive",
       });
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    fetchUnassignedInspectors();
+  }, [fetchUnassignedInspectors]);
 
   const handleAssignInspector = async (inspectorId: number, adminId: number) => {
     try {

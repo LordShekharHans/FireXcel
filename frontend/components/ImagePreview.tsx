@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "./ui/button";
 
 interface ImagePreviewProps {
@@ -9,10 +10,12 @@ interface ImagePreviewProps {
   export default function ImagePreview({ imageUrl, onAnalyze, isLoading }: ImagePreviewProps) {
     return (
       <div className="space-y-4 flex flex-col justify-center items-center">
-        <img
+        <Image
           src={imageUrl}
           alt="Blueprint Preview"
           className="max-w-full h-auto border rounded-lg"
+          width={800}
+          height={600}
         />
         <Button
           onClick={onAnalyze}

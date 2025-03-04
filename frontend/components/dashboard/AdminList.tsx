@@ -4,8 +4,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Admin } from "@/types/admin";
+
 import { format } from "date-fns";
+
+interface Admin {
+  adminId: number;
+  region: string;
+  createdAt: string;
+}
 
 interface AdminListProps {
   admins: Admin[];

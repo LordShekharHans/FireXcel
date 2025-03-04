@@ -114,8 +114,11 @@ export function MonthlyTrend({ inspections }: MonthlyTrendProps) {
                 stepSize: 1,
                 precision: 0,
               },
+              border: {  // ✅ Move drawBorder here
+                display: false,
+              },
               grid: {
-                drawBorder: false,
+                drawOnChartArea: false, // Optional: Hides grid lines on chart area
               },
             },
             x: {
@@ -123,7 +126,8 @@ export function MonthlyTrend({ inspections }: MonthlyTrendProps) {
                 display: false,
               },
             },
-          },
+          }
+          
         }}
       />
     </div>

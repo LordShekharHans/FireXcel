@@ -15,11 +15,15 @@ interface BoardState {
   activeTask: Task | null;
   isLoading: boolean;
   error: string | null;
-  
+
+  addTask: (columnId: string, task: Task) => void;
+  updateTask: (taskId: string, task: Partial<Task>) => void;
   fetchApplications: () => Promise<void>;
   convertApplicationToTask: (application: Application) => Task;
   moveTask: (taskId: Id, toColumnId: Id) => void;
   setActiveTask: (task: Task | null) => void;
+  updateTaskStatus: (taskId: string, status: Task['status']) => void;
+
 }
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -127,5 +131,27 @@ export const useBoardStore = create<BoardState>()((set, get) => ({
     };
   }),
 
+  ddTask: (boardId: any, taskData: Omit<Task, 'id'>) => {
+    set((state) => ({
+      tasks: [...state.tasks, { id: Date.now().toString(), boardId, ...taskData }],
+    }));
+  },
   setActiveTask: (task) => set({ activeTask: task }),
+  addTask: (columnId, task) => {
+    const newTask = { ...task, id: generateId(), columnId };
+    set((state) => ({ tasks: [...state.tasks, newTask] }));
+  },
+
+  updateTask: (taskId, updatedTask) => {
+    set((state) => ({
+      tasks: state.tasks.map((task) =>
+        task.id === taskId ? { ...task, ...updatedTask } : task
+      ),
+    }));
+  },
+  updateTaskStatus: (taskId: string, newStatus: Task['status']) => set((state) => ({
+    tasks: state.tasks.map(task =>
+      task.id === taskId ? { ...task, status: newStatus, updatedAt: new Date() } : task
+    ),
+  })),
 }));

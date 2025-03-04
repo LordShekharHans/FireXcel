@@ -18,6 +18,7 @@ interface Props {
   task: Task;
 }
 
+
 export function DraggableTaskList({ task }: Props) {
   const { updateTaskStatus } = useBoardStore();
   

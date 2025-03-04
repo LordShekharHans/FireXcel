@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { ApplicationList } from "./application/components/ApplicationList";
+// import { ApplicationList } from "./application/components/ApplicationList";
 
 const ApplicantDashboard = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);

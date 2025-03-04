@@ -44,11 +44,17 @@ export const TaskDialog = ({ task, open, onOpenChange }: Props) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    const taskData = {
+    const taskData: Task = {
+      id: task?.id || '',
+      columnId: task?.columnId || '',
+      status: task?.status || 'todo',
+      labels: task?.labels || [],
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       priority: formData.get('priority') as Task['priority'],
       dueDate: selectedDate,
+      createdAt: task?.createdAt || new Date(),
+      updatedAt: new Date()
     };
 
     try {

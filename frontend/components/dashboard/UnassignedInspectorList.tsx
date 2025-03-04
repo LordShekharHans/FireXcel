@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Inspector } from "@/types/admin";
+
 import { UserPlus } from "lucide-react";
 import {
   Select,
@@ -14,6 +14,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+
+interface Inspector {
+  inspectorId: number;
+  region: string;
+  createdAt: string;
+}
 import { format } from "date-fns";
 
 interface UnassignedInspectorListProps {
